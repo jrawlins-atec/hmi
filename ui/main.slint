@@ -1,0 +1,381 @@
+import { CustomButton, CustomCard, CustomInput, CustomToggle } from "widgets.slint";
+import { ThemeManager, ColorfulTheme } from "themes.slint";
+
+export component AppWindow inherits Window {
+    title: "Slint HMI App - Custom Widgets & Themes";
+    min-width: 800px;
+    min-height: 600px;
+    preferred-width: 1000px;
+    preferred-height: 800px;
+    
+    in-out property <string> current-theme: "light";
+    callback theme-changed(string);
+    
+    // Theme manager instance
+    theme-manager := ThemeManager {
+        current-theme: root.current-theme;
+    }
+    
+    background: root.current-theme == "colorful" ? ColorfulTheme.background-gradient : theme-manager.bg;
+    
+    VerticalLayout {
+        padding: 20px;
+        spacing: 20px;
+        
+        // Header with theme selector
+        Rectangle {
+            height: 80px;
+            background: theme-manager.surface;
+            border-radius: 12px;
+            border-width: 1px;
+            border-color: theme-manager.border;
+            
+            HorizontalLayout {
+                padding: 20px;
+                spacing: 20px;
+                alignment: space-between;
+                
+                VerticalLayout {
+                    spacing: 5px;
+                    
+                    Text {
+                        text: "Slint HMI Application";
+                        font-size: 24px;
+                        font-weight: 700;
+                        color: theme-manager.text-primary;
+                    }
+                    
+                    Text {
+                        text: "Custom Widgets & Theme Showcase";
+                        font-size: 14px;
+                        color: theme-manager.text-secondary;
+                    }
+                }
+                
+                HorizontalLayout {
+                    spacing: 10px;
+                    alignment: end;
+                    
+                    Text {
+                        text: "Theme:";
+                        font-size: 14px;
+                        color: theme-manager.text-primary;
+                        vertical-alignment: center;
+                    }
+                    
+                    CustomButton {
+                        text: "Light";
+                        button-type: root.current-theme == "light" ? "primary" : "secondary";
+                        current-theme: root.current-theme;
+                        clicked => {
+                            root.current-theme = "light";
+                            root.theme-changed("light");
+                        }
+                    }
+
+                    CustomButton {
+                        text: "Dark";
+                        button-type: root.current-theme == "dark" ? "primary" : "secondary";
+                        current-theme: root.current-theme;
+                        clicked => {
+                            root.current-theme = "dark";
+                            root.theme-changed("dark");
+                        }
+                    }
+
+                    CustomButton {
+                        text: "Colorful";
+                        button-type: root.current-theme == "colorful" ? "primary" : "secondary";
+                        current-theme: root.current-theme;
+                        clicked => {
+                            root.current-theme = "colorful";
+                            root.theme-changed("colorful");
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Main content area
+        HorizontalLayout {
+            spacing: 20px;
+
+            // Left column - Widgets showcase
+            VerticalLayout {
+                spacing: 20px;
+                width: 50%;
+                alignment: start;
+                
+                CustomCard {
+                    title: "Custom Buttons";
+                    content: "Different button styles and states";
+                    current-theme: root.current-theme;
+
+                    HorizontalLayout {
+                        spacing: 10px;
+
+                        CustomButton {
+                            text: "Primary";
+                            button-type: "primary";
+                            current-theme: root.current-theme;
+                        }
+
+                        CustomButton {
+                            text: "Secondary";
+                            button-type: "secondary";
+                            current-theme: root.current-theme;
+                        }
+
+                        CustomButton {
+                            text: "Danger";
+                            button-type: "danger";
+                            current-theme: root.current-theme;
+                        }
+                    }
+
+                    CustomButton {
+                        text: "Disabled Button";
+                        enabled: false;
+                        current-theme: root.current-theme;
+                    }
+                }
+                
+                CustomCard {
+                    title: "Input Fields";
+                    content: "Custom styled input components";
+                    current-theme: root.current-theme;
+
+                    CustomInput {
+                        label: "Username";
+                        placeholder: "Enter your username";
+                        current-theme: root.current-theme;
+                    }
+
+                    CustomInput {
+                        label: "Email";
+                        placeholder: "Enter your email address";
+                        current-theme: root.current-theme;
+                    }
+
+                    CustomInput {
+                        placeholder: "Input without label";
+                        current-theme: root.current-theme;
+                    }
+                }
+
+                CustomCard {
+                    title: "Status Indicators";
+                    content: "Visual status indicators and progress elements";
+                    current-theme: root.current-theme;
+
+                    VerticalLayout {
+                        spacing: 15px;
+
+                        // Status badges
+                        HorizontalLayout {
+                            spacing: 10px;
+                            alignment: start;
+
+                            Rectangle {
+                                width: 80px;
+                                height: 24px;
+                                background: theme-manager.success;
+                                border-radius: 12px;
+
+                                Text {
+                                    text: "Online";
+                                    color: #ffffff;
+                                    font-size: 11px;
+                                    font-weight: 600;
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                }
+                            }
+
+                            Rectangle {
+                                width: 80px;
+                                height: 24px;
+                                background: theme-manager.warning;
+                                border-radius: 12px;
+
+                                Text {
+                                    text: "Warning";
+                                    color: #ffffff;
+                                    font-size: 11px;
+                                    font-weight: 600;
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                }
+                            }
+
+                            Rectangle {
+                                width: 80px;
+                                height: 24px;
+                                background: theme-manager.danger;
+                                border-radius: 12px;
+
+                                Text {
+                                    text: "Error";
+                                    color: #ffffff;
+                                    font-size: 11px;
+                                    font-weight: 600;
+                                    horizontal-alignment: center;
+                                    vertical-alignment: center;
+                                }
+                            }
+                        }
+
+                        // Progress bar
+                        VerticalLayout {
+                            spacing: 8px;
+
+                            Text {
+                                text: "Progress: 65%";
+                                font-size: 12px;
+                                color: theme-manager.text-secondary;
+                                horizontal-alignment: left;
+                            }
+
+                            Rectangle {
+                                height: 8px;
+                                background: theme-manager.border;
+                                border-radius: 4px;
+
+                                Rectangle {
+                                    width: 65%;
+                                    height: parent.height;
+                                    background: theme-manager.primary;
+                                    border-radius: parent.border-radius;
+                                }
+                            }
+                        }
+
+                        // Connection status indicator
+                        HorizontalLayout {
+                            spacing: 8px;
+                            alignment: start;
+
+                            Rectangle {
+                                width: 12px;
+                                height: 12px;
+                                background: theme-manager.success;
+                                border-radius: 6px;
+
+                                animate background {
+                                    duration: 1000ms;
+                                    easing: ease-in-out;
+                                    iteration-count: -1;
+                                }
+                            }
+
+                            Text {
+                                text: "System Connected";
+                                font-size: 12px;
+                                color: theme-manager.text-primary;
+                                vertical-alignment: center;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Right column - More widgets and controls
+            VerticalLayout {
+                spacing: 20px;
+                width: 50%;
+                alignment: start;
+                
+                CustomCard {
+                    title: "Toggle Controls";
+                    content: "Custom toggle switches with different states";
+                    current-theme: root.current-theme;
+
+                    CustomToggle {
+                        label: "Enable notifications";
+                        checked: true;
+                        current-theme: root.current-theme;
+                    }
+
+                    CustomToggle {
+                        label: "Dark mode preference";
+                        checked: root.current-theme == "dark";
+                        current-theme: root.current-theme;
+                        toggled(checked) => {
+                            if (checked) {
+                                root.current-theme = "dark";
+                                root.theme-changed("dark");
+                            } else {
+                                root.current-theme = "light";
+                                root.theme-changed("light");
+                            }
+                        }
+                    }
+
+                    CustomToggle {
+                        label: "Auto-save settings";
+                        checked: false;
+                        current-theme: root.current-theme;
+                    }
+                }
+                
+                CustomCard {
+                    title: "Theme Information";
+                    content: "Current theme details and color palette";
+                    current-theme: root.current-theme;
+
+                    Text {
+                        text: "Active Theme: " + root.current-theme;
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: theme-manager.text-primary;
+                    }
+
+                    HorizontalLayout {
+                        spacing: 10px;
+
+                        Rectangle {
+                            width: 30px;
+                            height: 30px;
+                            background: theme-manager.primary;
+                            border-radius: 4px;
+                        }
+
+                        Rectangle {
+                            width: 30px;
+                            height: 30px;
+                            background: theme-manager.secondary;
+                            border-radius: 4px;
+                        }
+
+                        Rectangle {
+                            width: 30px;
+                            height: 30px;
+                            background: theme-manager.accent;
+                            border-radius: 4px;
+                        }
+
+                        Rectangle {
+                            width: 30px;
+                            height: 30px;
+                            background: theme-manager.success;
+                            border-radius: 4px;
+                        }
+
+                        Rectangle {
+                            width: 30px;
+                            height: 30px;
+                            background: theme-manager.danger;
+                            border-radius: 4px;
+                        }
+                    }
+
+                    Text {
+                        text: "Color palette preview";
+                        font-size: 12px;
+                        color: theme-manager.text-muted;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { CustomButton, CustomCard, CustomInput, CustomToggle } from "widgets.slint";
+import { CustomButton, CustomCard, CustomInput, CustomToggle, TextFileCard } from "widgets.slint";
 import { ThemeManager, ColorfulTheme } from "themes.slint";
 
 export component AppWindow inherits Window {
@@ -7,9 +7,12 @@ export component AppWindow inherits Window {
     min-height: 600px;
     preferred-width: 1000px;
     preferred-height: 800px;
-    
+
     in-out property <string> current-theme: "light";
+    in-out property <string> file-content: "No file loaded...";
+    in-out property <string> file-path: "";
     callback theme-changed(string);
+    callback load-file(string) -> string;
     
     // Theme manager instance
     theme-manager := ThemeManager {
@@ -98,13 +101,14 @@ export component AppWindow inherits Window {
         
         // Main content area
         HorizontalLayout {
-            spacing: 20px;
+            spacing: 16px;
 
             // Left column - Widgets showcase
             VerticalLayout {
                 spacing: 20px;
                 width: 50%;
                 alignment: start;
+                padding-right: 8px;
                 
                 CustomCard {
                     title: "Custom Buttons";
@@ -284,6 +288,8 @@ export component AppWindow inherits Window {
                 spacing: 20px;
                 width: 50%;
                 alignment: start;
+                padding-left: 8px;
+                padding-right: 0px;
                 
                 CustomCard {
                     title: "Toggle Controls";
@@ -373,6 +379,17 @@ export component AppWindow inherits Window {
                         text: "Color palette preview";
                         font-size: 12px;
                         color: theme-manager.text-muted;
+                    }
+                }
+
+                TextFileCard {
+                    title: "Text File Viewer";
+                    current-theme: root.current-theme;
+                    file-content: root.file-content;
+                    file-path: root.file-path;
+                    load-file(file-path) => {
+                        root.file-content = root.load-file(file-path);
+                        root.file-path = file-path;
                     }
                 }
             }

@@ -9,6 +9,7 @@ A modern Human-Machine Interface (HMI) application built with Rust and Slint, fe
 - **CustomCard**: Elevated card components with shadows and themed styling
 - **CustomInput**: Text input fields with labels and placeholder support
 - **CustomToggle**: Switch components with smooth animations
+- **TextFileCard**: File viewer card that displays text file contents with syntax highlighting
 
 ### Theme System
 - **Light Theme**: Clean, bright interface with subtle gradients
@@ -73,6 +74,7 @@ The application showcases various custom widgets:
 3. **Toggle Controls**: Interactive switches with smooth animations
 4. **Status Indicators**: Visual status badges, progress bars, and connection indicators
 5. **Cards**: Elevated containers with themed styling and shadows
+6. **Text File Viewer**: Interactive file browser that displays text file contents with monospace font
 
 ### Configuration
 Theme preferences are stored in:
@@ -112,6 +114,14 @@ Custom widgets follow these principles:
 ## Recent Updates
 
 ### New Features Added
+- ✅ **Text File Viewer Card**: Added interactive text file display functionality
+  - Displays text file contents with monospace font for code/data files
+  - Multiple file selection buttons (Sample.txt, Config.json, README.md, Example.rs)
+  - File information display (file path, size, line count)
+  - Error handling for missing or unreadable files
+  - Theme-aware styling and professional layout
+  - Rust backend integration for file loading
+
 - ✅ **Status Indicators Card**: Added comprehensive status visualization components
   - Status badges for Online, Warning, and Error states
   - Progress bar with percentage display

@@ -1,4 +1,5 @@
 import { ThemeManager, LightTheme, DarkTheme, ColorfulTheme } from "themes.slint";
+import { ScrollView } from "std-widgets.slint";
 
 // Custom Button Widget
 export component CustomButton inherits Rectangle {
@@ -159,6 +160,136 @@ export component CustomInput inherits Rectangle {
                 x: 12px;
                 width: parent.width - 24px;
                 vertical-alignment: center;
+            }
+        }
+    }
+}
+
+// Text File Display Card Widget
+export component TextFileCard inherits Rectangle {
+    in property <string> title: "Text File";
+    in property <string> file-content: "No file loaded...";
+    in property <string> file-path: "";
+    in property <bool> elevated: true;
+    in property <string> current-theme: "light";
+    callback load-file(string);
+
+    theme-manager := ThemeManager {
+        current-theme: root.current-theme;
+    }
+
+    min-height: 400px;
+    background: theme-manager.card-bg;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: theme-manager.border;
+
+    // Drop shadow effect
+    if elevated: Rectangle {
+        x: 2px;
+        y: 2px;
+        width: parent.width;
+        height: parent.height;
+        background: theme-manager.shadow;
+        border-radius: parent.border-radius;
+        z: -1;
+    }
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 12px;
+
+        // Header with title and file path
+        HorizontalLayout {
+            spacing: 10px;
+            alignment: space-between;
+
+            Text {
+                text: root.title;
+                font-size: 18px;
+                font-weight: 700;
+                color: theme-manager.text-primary;
+                horizontal-alignment: left;
+            }
+
+            HorizontalLayout {
+                spacing: 5px;
+
+                CustomButton {
+                    text: "📄 Sample.txt";
+                    button-type: "secondary";
+                    current-theme: root.current-theme;
+                    max-width: 120px;
+                    clicked => {
+                        root.load-file("sample.txt");
+                    }
+                }
+
+                CustomButton {
+                    text: "⚙️ Config.json";
+                    button-type: "secondary";
+                    current-theme: root.current-theme;
+                    max-width: 120px;
+                    clicked => {
+                        root.load-file("config.json");
+                    }
+                }
+
+                CustomButton {
+                    text: "📖 README.md";
+                    button-type: "secondary";
+                    current-theme: root.current-theme;
+                    max-width: 120px;
+                    clicked => {
+                        root.load-file("README.md");
+                    }
+                }
+
+                CustomButton {
+                    text: "🦀 Example.rs";
+                    button-type: "secondary";
+                    current-theme: root.current-theme;
+                    max-width: 120px;
+                    clicked => {
+                        root.load-file("example.rs");
+                    }
+                }
+            }
+        }
+
+        if root.file-path != "": Text {
+            text: "File: " + root.file-path;
+            font-size: 12px;
+            color: theme-manager.text-muted;
+            horizontal-alignment: left;
+        }
+
+        // Scrollable text content area
+        Rectangle {
+            background: theme-manager.bg;
+            border-radius: 8px;
+            border-width: 1px;
+            border-color: theme-manager.border;
+            min-height: 250px;
+
+            ScrollView {
+                width: 100%;
+                height: 100%;
+
+                VerticalLayout {
+                    padding: 15px;
+
+                    Text {
+                        text: root.file-content;
+                        font-size: 12px;
+                        font-family: "Consolas, Monaco, 'Courier New', monospace";
+                        color: theme-manager.text-primary;
+                        wrap: word-wrap;
+                        horizontal-alignment: left;
+                        vertical-alignment: top;
+                        width: 100%;
+                    }
+                }
             }
         }
     }

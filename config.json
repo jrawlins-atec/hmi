@@ -1,0 +1,38 @@
+{
+  "application": {
+    "name": "Slint HMI Application",
+    "version": "1.0.0",
+    "description": "A modern Human-Machine Interface application"
+  },
+  "ui": {
+    "theme": "light",
+    "window": {
+      "width": 1000,
+      "height": 800,
+      "resizable": true
+    },
+    "colors": {
+      "primary": "#007acc",
+      "secondary": "#6c757d",
+      "success": "#28a745",
+      "danger": "#dc3545",
+      "warning": "#ffc107"
+    }
+  },
+  "features": {
+    "hot_reload": true,
+    "theme_switching": true,
+    "file_viewer": true,
+    "custom_widgets": [
+      "CustomButton",
+      "CustomCard", 
+      "CustomInput",
+      "CustomToggle",
+      "TextFileCard"
+    ]
+  },
+  "paths": {
+    "config_dir": "%APPDATA%/slint-hmi-app",
+    "sample_files": "./samples"
+  }
+}

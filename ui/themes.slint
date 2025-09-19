@@ -1,0 +1,131 @@
+// Theme definitions
+export global LightTheme {
+    out property <color> background: #f8f9fa;
+    out property <color> surface: #ffffff;
+    out property <color> primary: #667eea;
+    out property <color> secondary: #6c757d;
+    out property <color> accent: #17a2b8;
+    out property <color> text-primary: #212529;
+    out property <color> text-secondary: #6c757d;
+    out property <color> text-muted: #adb5bd;
+    out property <color> border: #dee2e6;
+    out property <color> shadow: #00000015;
+    out property <color> success: #28a745;
+    out property <color> warning: #ffc107;
+    out property <color> danger: #dc3545;
+    out property <color> card-bg: #ffffff;
+    out property <color> input-bg: #ffffff;
+    out property <color> button-hover: #5a6fd8;
+    out property <brush> primary-gradient: @linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+export global DarkTheme {
+    out property <color> background: #1a1a1a;
+    out property <color> surface: #2d2d2d;
+    out property <color> primary: #667eea;
+    out property <color> secondary: #6c757d;
+    out property <color> accent: #17a2b8;
+    out property <color> text-primary: #ffffff;
+    out property <color> text-secondary: #adb5bd;
+    out property <color> text-muted: #6c757d;
+    out property <color> border: #495057;
+    out property <color> shadow: #00000040;
+    out property <color> success: #28a745;
+    out property <color> warning: #ffc107;
+    out property <color> danger: #dc3545;
+    out property <color> card-bg: #343a40;
+    out property <color> input-bg: #495057;
+    out property <color> button-hover: #5a6fd8;
+    out property <brush> primary-gradient: @linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+export global ColorfulTheme {
+    out property <color> background: #f0f2ff;
+    out property <color> surface: #ffffff;
+    out property <color> primary: #ff6b6b;
+    out property <color> secondary: #4ecdc4;
+    out property <color> accent: #feca57;
+    out property <color> text-primary: #2c3e50;
+    out property <color> text-secondary: #34495e;
+    out property <color> text-muted: #7f8c8d;
+    out property <color> border: #bdc3c7;
+    out property <color> shadow: #00000020;
+    out property <color> success: #00b894;
+    out property <color> warning: #fdcb6e;
+    out property <color> danger: #d63031;
+    out property <color> card-bg: #ffffff;
+    out property <color> input-bg: #ffffff;
+    out property <color> button-hover: #ff5252;
+    out property <brush> primary-gradient: @linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    out property <brush> background-gradient: @linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+// Theme Manager Component
+export component ThemeManager {
+    in property <string> current-theme: "light";
+
+    // Current theme colors (dynamically set based on current-theme)
+    out property <color> bg: current-theme == "dark" ? DarkTheme.background :
+                             current-theme == "colorful" ? ColorfulTheme.background :
+                             LightTheme.background;
+
+    out property <color> surface: current-theme == "dark" ? DarkTheme.surface :
+                                 current-theme == "colorful" ? ColorfulTheme.surface :
+                                 LightTheme.surface;
+
+    out property <color> primary: current-theme == "dark" ? DarkTheme.primary :
+                                 current-theme == "colorful" ? ColorfulTheme.primary :
+                                 LightTheme.primary;
+
+    out property <color> secondary: current-theme == "dark" ? DarkTheme.secondary :
+                                   current-theme == "colorful" ? ColorfulTheme.secondary :
+                                   LightTheme.secondary;
+
+    out property <color> accent: current-theme == "dark" ? DarkTheme.accent :
+                                current-theme == "colorful" ? ColorfulTheme.accent :
+                                LightTheme.accent;
+    
+    out property <color> text-primary: current-theme == "dark" ? DarkTheme.text-primary : 
+                                      current-theme == "colorful" ? ColorfulTheme.text-primary : 
+                                      LightTheme.text-primary;
+    
+    out property <color> text-secondary: current-theme == "dark" ? DarkTheme.text-secondary : 
+                                        current-theme == "colorful" ? ColorfulTheme.text-secondary : 
+                                        LightTheme.text-secondary;
+    
+    out property <color> text-muted: current-theme == "dark" ? DarkTheme.text-muted : 
+                                    current-theme == "colorful" ? ColorfulTheme.text-muted : 
+                                    LightTheme.text-muted;
+    
+    out property <color> border: current-theme == "dark" ? DarkTheme.border : 
+                                current-theme == "colorful" ? ColorfulTheme.border : 
+                                LightTheme.border;
+    
+    out property <color> shadow: current-theme == "dark" ? DarkTheme.shadow : 
+                                current-theme == "colorful" ? ColorfulTheme.shadow : 
+                                LightTheme.shadow;
+    
+    out property <color> success: current-theme == "dark" ? DarkTheme.success :
+                                 current-theme == "colorful" ? ColorfulTheme.success :
+                                 LightTheme.success;
+
+    out property <color> warning: current-theme == "dark" ? DarkTheme.warning :
+                                 current-theme == "colorful" ? ColorfulTheme.warning :
+                                 LightTheme.warning;
+
+    out property <color> danger: current-theme == "dark" ? DarkTheme.danger :
+                                current-theme == "colorful" ? ColorfulTheme.danger :
+                                LightTheme.danger;
+    
+    out property <color> card-bg: current-theme == "dark" ? DarkTheme.card-bg : 
+                                 current-theme == "colorful" ? ColorfulTheme.card-bg : 
+                                 LightTheme.card-bg;
+    
+    out property <color> input-bg: current-theme == "dark" ? DarkTheme.input-bg : 
+                                  current-theme == "colorful" ? ColorfulTheme.input-bg : 
+                                  LightTheme.input-bg;
+    
+    out property <color> button-hover: current-theme == "dark" ? DarkTheme.button-hover : 
+                                      current-theme == "colorful" ? ColorfulTheme.button-hover : 
+                                      LightTheme.button-hover;
+}

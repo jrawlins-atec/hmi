@@ -2,11 +2,11 @@ import { CustomButton, CustomCard, CustomInput, CustomToggle, TextFileCard } fro
 import { ThemeManager, ColorfulTheme } from "themes.slint";
 
 export component AppWindow inherits Window {
-    title: "Slint HMI App - Custom Widgets & Themes";
-    min-width: 800px;
-    min-height: 600px;
-    preferred-width: 1000px;
-    preferred-height: 800px;
+    title: "Slint HMI App - Custom Widgets & Themes - " + Math.round(self.width / 1px) + "x" + Math.round(self.height / 1px);
+    min-width: 1572px;
+    min-height: 1017px;
+    preferred-width: 1572px;
+    preferred-height: 1017px;
 
     in-out property <string> current-theme: "light";
     in-out property <string> file-content: "No file loaded...";
@@ -289,7 +289,7 @@ export component AppWindow inherits Window {
                 width: 50%;
                 alignment: start;
                 padding-left: 8px;
-                padding-right: 0px;
+                padding-right: 20px;
                 
                 CustomCard {
                     title: "Toggle Controls";
